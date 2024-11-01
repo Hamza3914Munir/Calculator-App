@@ -5,6 +5,12 @@ import 'package:function_tree/function_tree.dart';
 
 class CalculatorProvider extends ChangeNotifier {
   final calController = TextEditingController();
+  bool isDarkTheme = true; // Default to dark theme
+
+  void toggleTheme() {
+    isDarkTheme = !isDarkTheme;
+    notifyListeners();
+  }
 
   setValue(String value) {
     String str = calController.text;

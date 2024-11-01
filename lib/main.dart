@@ -14,11 +14,15 @@ class CalculatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => CalculatorProvider(),
-        child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: HomeScreen()
-      ),
+        child: Consumer<CalculatorProvider>(builder: (context, provideer, _) {
+          return  MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: provideer.isDarkTheme ? ThemeData.dark()  : ThemeData.light(),
+              home: HomeScreen()
+          );
+        }
+
+        ),
     );
   }
 }
