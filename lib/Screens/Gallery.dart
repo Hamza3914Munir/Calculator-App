@@ -9,13 +9,12 @@ import 'package:calculator/Provider/Cal_Provider.dart';
 
 import '../Widgets/appbar.dart';
 
-
-class CameraCaptureScreen extends StatefulWidget {
+class GalleryCaptureScreen extends StatefulWidget {
   @override
-  CameraCaptureScreenState createState() => CameraCaptureScreenState();
+  GalleryCaptureScreenState createState() => GalleryCaptureScreenState();
 }
 
-class CameraCaptureScreenState extends State<CameraCaptureScreen> {
+class GalleryCaptureScreenState extends State<GalleryCaptureScreen> {
   final ImagePicker picker = ImagePicker();
   File? imageFile;
   String extractedText = "";
@@ -31,9 +30,10 @@ class CameraCaptureScreenState extends State<CameraCaptureScreen> {
   // Controller for the extracted text
   final TextEditingController textController = TextEditingController();
 
-  // Method to capture a picture using the camera
-  Future<void> _takePicture() async {
-    final XFile? pickedFile = await picker.pickImage(source: ImageSource.camera);
+  // Method to pick a picture from gallery
+  Future<void> _pickImageFromGallery() async {
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
     if (pickedFile != null) {
       setState(() {
         imageFile = File(pickedFile.path);
@@ -41,6 +41,7 @@ class CameraCaptureScreenState extends State<CameraCaptureScreen> {
       await _extractTextFromImage(imageFile!);
     }
   }
+
 
   // Extract text using Google ML Kit
   Future<void> _extractTextFromImage(File file) async {
@@ -95,13 +96,13 @@ class CameraCaptureScreenState extends State<CameraCaptureScreen> {
       backgroundColor: context.watch<CalculatorProvider>().isDarkTheme
           ? AppColors.darkPrimaryColor
           : Colors.lightBlueAccent,
-      appBar: CommonAppBar( isHomeScreen: false),
+      appBar: CommonAppBar(isHomeScreen: false),
       body: imageFile == null
           ? Center(
         child: ElevatedButton.icon(
-          onPressed: _takePicture,
+          onPressed: _pickImageFromGallery,
           icon: Icon(Icons.camera_alt_rounded),
-          label: Text("Capture Image"),
+          label: Text("Pick Image from Gallery"),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -153,7 +154,7 @@ class CameraCaptureScreenState extends State<CameraCaptureScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: _takePicture,
+                    onPressed: _pickImageFromGallery,
                     icon: Icon(Icons.camera_alt_rounded),
                     label: Text("Retake"),
                     style: ElevatedButton.styleFrom(

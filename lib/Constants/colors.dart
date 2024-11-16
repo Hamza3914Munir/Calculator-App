@@ -16,3 +16,8 @@ class AppColors {
   static const Color secondaryColor = Colors.red; // Default secondary color
   static const Color secondary2Color = Colors.green; // Default secondary2 color
 }
+
+class AppConstants{
+
+ static const String GEMINI_API_KEY = "AIzaSyA-tl6EYm0DJBZn9rYK2SM3723RB9gp4ts";
+}
